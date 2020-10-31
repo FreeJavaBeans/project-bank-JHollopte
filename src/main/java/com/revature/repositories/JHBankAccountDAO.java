@@ -31,7 +31,7 @@ public class JHBankAccountDAO implements BankAccountRepository {
 					//prepare a sql statement to get all food "select * from food;"
 					Statement statementObject = conn.createStatement();
 					
-					String queryString = "select * from Account;";
+					String queryString = "select * from accounts;";
 					//execute the statement
 					ResultSet rs = statementObject.executeQuery(queryString);
 					
@@ -41,7 +41,7 @@ public class JHBankAccountDAO implements BankAccountRepository {
 					//calling first() or next() will take us to the first row
 					while(rs.next()) {
 						Account a = new Account();
-						
+						a.setAcc_name(rs.getString("acc_name"));
 						a.setAcc_id(rs.getInt("acc_id"));
 						a.setBalance(rs.getDouble("balance"));
 						a.setAcc_status(rs.getString("acc_status"));

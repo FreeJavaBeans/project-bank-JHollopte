@@ -2,8 +2,9 @@ package com.revature.menus;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
-
+import com.revature.models.Account;
 import com.revature.repositories.BankAccountRepository;
 import com.revature.repositories.JHBankAccountDAO;
 
@@ -33,7 +34,13 @@ public class BankMenu {
 	
 	public BankMenu() {
 		super();
-		
+		Set<Account> allAccounts = ros.getAllAccounts();
+		this.menu = new ArrayList<BankMenuLine>();
+		int linenumber = 1;
+		for(Account a : allAccounts) {
+			BankMenuLine bml = new BankMenuLine(linenumber++,a,ros);
+			menu.add(bml);
+		}
 	}
 	
 	

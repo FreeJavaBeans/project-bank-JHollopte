@@ -17,7 +17,7 @@ public class BankMenuLine {
 	
 	
 	public String display() {
-		return lineNumber + ". " + account.getAcc_id() + 
+		return lineNumber + ". " + account.getAcc_name() + 
 				" - " + "with balance of " + account.getBalance();
 	}
 	
@@ -25,7 +25,7 @@ public class BankMenuLine {
 		//what happens when you choose a food from the menu
 		//probably we add it to your order
 		Account a = ros.createNewAccountforUser(account); // This needs to be changed
-		System.out.println("your order is : " + a);
+		System.out.println("Created New Account : " + a);
 	}
 
 	public int getLineNumber() {
@@ -58,7 +58,7 @@ public class BankMenuLine {
 
 	@Override
 	public String toString() {
-		return "FoodMenuLine [lineNumber=" + lineNumber + ", food=" + account + "]";
+		return "BankMenuLine [lineNumber=" + lineNumber + ", account=" + account + "]";
 	}
 
 	@Override
