@@ -11,10 +11,10 @@ public class BankLauncher {
 
 	public static void main(String[] args) {
 		
-		MenuSelector ms = new MenuSelector();
+		MenuSelector ms = MenuSelector.getMenuSelector();
 		while(true) {
-			ms.display();
-			//login logout functionality
+			System.out.println(ms.display());
+			ms.handleInput();
 		}
 	}
 

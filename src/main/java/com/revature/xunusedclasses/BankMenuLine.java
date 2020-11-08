@@ -1,18 +1,18 @@
-package com.revature.menus;
+package com.revature.xunusedclasses;
 
+import com.revature.exceptions.AccountNotFoundException;
 import com.revature.models.Account;
 import com.revature.models.AccountHoldings;
+import com.revature.models.User;
 import com.revature.repositories.BankAccountRepository;
 
-//a single line on the food menu
+//a single line on the bank menu
 public class BankMenuLine {
 	
 	private int lineNumber;
 	
 	private Account account;
 	
-	//we should give the service to the menu
-	//menu can pass it to each line
 	private BankAccountRepository ros;
 	
 	
@@ -22,10 +22,13 @@ public class BankMenuLine {
 	}
 	
 	public void doAction() {
-		//what happens when you choose a food from the menu
-		//probably we add it to your order
-		Account a = ros.createNewAccountforUser(account); // This needs to be changed
-		System.out.println("Created New Account : " + a);
+		
+		try {
+			Account a = ros.getAccountById(account.getAcc_id());
+			System.out.println("Account Found: " + a.getAcc_name());
+		}catch(AccountNotFoundException e) {
+			System.out.println("Account not found try again...");
+		}
 	}
 
 	public int getLineNumber() {
@@ -36,17 +39,16 @@ public class BankMenuLine {
 		this.lineNumber = lineNumber;
 	}
 
-	public Account getFood() {
+	public Account getAccount() {
 		return account;
 	}
 
-	public void setFood(Account account) {
+	public void setAccount(Account account) {
 		this.account = account;
 	}
 
 	public BankMenuLine() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public BankMenuLine(int lineNumber, Account account, BankAccountRepository ros) {

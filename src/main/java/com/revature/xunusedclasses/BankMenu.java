@@ -1,8 +1,7 @@
-package com.revature.menus;
+package com.revature.xunusedclasses;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import com.revature.models.Account;
 import com.revature.repositories.BankAccountRepository;
@@ -34,7 +33,7 @@ public class BankMenu {
 	
 	public BankMenu() {
 		super();
-		Set<Account> allAccounts = ros.getAllAccounts();
+		List<Account> allAccounts = ros.getAllAccounts();
 		this.menu = new ArrayList<BankMenuLine>();
 		int linenumber = 1;
 		for(Account a : allAccounts) {

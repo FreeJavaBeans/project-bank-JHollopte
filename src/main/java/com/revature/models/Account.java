@@ -1,6 +1,8 @@
 package com.revature.models;
 
-public class Account {
+import com.revature.menus.Displayable;
+
+public class Account implements Displayable{
 	
 	// it's id in the JHBank scemea -> accounts
 	private int acc_id;
@@ -15,7 +17,7 @@ public class Account {
 	private String acc_name;
 
 	
-	
+	// default constructor
 	public Account() {
 		super();
 		this.acc_id = 0;
@@ -24,6 +26,14 @@ public class Account {
 		this.acc_name = null;
 	}
 	
+	// Creating a new account on database should be this, name w/ pending status
+	public Account(String name) {
+		super();
+		this.acc_id = 0;
+		this.balance = 0;
+		this.acc_status = "P";
+		this.acc_name = name;
+	}
 	
 	public Account(int acc_id, double balance, String acc_status, String acc_name) {
 		super();
@@ -33,6 +43,19 @@ public class Account {
 		this.acc_name = acc_name;
 	}
 
+	@Override
+	public String display() {
+		String status = "";
+		if(this.acc_status.equals("A")) {
+			status = "Approved";
+		}else if(this.acc_status.equals("D")) {
+			status = "Denied";
+		}else {
+			status = "Pending";
+		}
+		return "Account " + this.acc_name + ": Status " + status;
+	}
+	
 	/**
 	 * toString Override, returns string of the Account's
 	 * Account Number, Balance, Account Status [(A)pproved,(D)enied,(P)ending], Account Name
