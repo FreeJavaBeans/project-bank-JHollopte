@@ -1,13 +1,13 @@
 package com.revature;
 
-import java.util.Set;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.revature.menus.MenuSelector;
-import com.revature.models.Account;
-import com.revature.repositories.BankAccountRepository;
-import com.revature.repositories.JHBankAccountDAO;
 
 public class BankLauncher {
+	
+	public static Logger logger = LogManager.getLogger("com.revature.jhbank");
 
 	public static void main(String[] args) {
 		

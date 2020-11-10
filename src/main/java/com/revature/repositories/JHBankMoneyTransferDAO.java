@@ -74,8 +74,8 @@ public class JHBankMoneyTransferDAO implements BankMoneyTransferDAO {
 
 		try {
 			PreparedStatement ps = 
-					conn.prepareStatement("select * from accounts where acc_id in"
-							+ "(select acc_id from accountholdings where user_id = ?);");
+					conn.prepareStatement("select * from accounts where acc_status = 'A' and"
+							+ " acc_id in (select acc_id from accountholdings where user_id = ?);");
 			
 			ps.setInt(1, currentUserId);
 			
