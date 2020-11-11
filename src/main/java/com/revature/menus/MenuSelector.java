@@ -38,17 +38,6 @@ public class MenuSelector implements Displayable{
 
 	private MenuNode buildMenus() {
 		MenuNode login = new MenuNode(new LoginMenu(), null, null);
-		/*MenuNode main = new MenuNode(new MainMenu(), login, null);
-		MenuNode customerAccount = new MenuNode(new AccountMenu(), main, null);
-		
-		List<MenuNode> loginChildren = new ArrayList<MenuNode>();
-		loginChildren.add(main);
-		login.setChildren(loginChildren);
-		
-		List<MenuNode> mainChildren = new ArrayList<MenuNode>();
-		mainChildren.add(customerAccount);
-		main.setChildren(mainChildren);*/
-		
 		return login;
 	}
 	
@@ -85,20 +74,6 @@ public class MenuSelector implements Displayable{
 		customerAccountMenu.setChildren(camChildren);
 	}
 	
-	/*public void updateNodeAfterCustomerId(User u) {
-		MenuNode employeeMainMenu = this.currentMenu;
-		MenuNode customerModfiyAccountMenu = new MenuNode(	new ViewUserAccountsMenu(u),
-															employeeMainMenu,
-															null);
-		MenuNode ependacc = new MenuNode(new PendingAccountsMenu(),employeeMainMenu,null);
-		MenuNode etransaction = new MenuNode(new TransactionLogMenu(),employeeMainMenu,null);
-		List<MenuNode> emmChildren = new ArrayList<MenuNode>();
-		emmChildren.add(ependacc);
-		emmChildren.add(etransaction);
-		emmChildren.add(customerModfiyAccountMenu);
-		employeeMainMenu.setChildren(emmChildren);
-	}*/
-	
 	public void updateNodeAfterCustomerId() {
 		MenuNode employeeMainMenu = this.currentMenu;
 		MenuNode customerModfiyAccountMenu = new MenuNode(	new ViewUserAccountsMenu(),
@@ -130,6 +105,33 @@ public class MenuSelector implements Displayable{
 				mn = updatedMenu;
 				this.currentMenu = updatedMenu;
 				break;
+			}
+		}
+	}
+	
+	public void updateAllChildren(boolean updateParent) {
+		MenuNode parent = this.currentMenu.getParent();
+		List<MenuNode> children = this.currentMenu.getChildren();
+		if(updateParent) {
+			for(MenuNode mn:parent.getChildren()) {
+				if(mn.getValue() instanceof ViewPendingMTMenu) {
+					mn.setValue(new ViewPendingMTMenu());
+				} else if(mn.getValue() instanceof AcceptMTMenu) {
+					mn.setValue(new AcceptMTMenu());
+				}
+			}
+		}else {
+			for(MenuNode mn : children) {
+				if(mn.getValue() instanceof AccountMenu) {
+					mn.setValue(new AccountMenu());
+				} else if(mn.getValue() instanceof MoneyTransferMenu) {
+					for(MenuNode childrenMNs : mn.getChildren()) {
+						if(childrenMNs.getValue() instanceof CreateMTMenu) {
+							childrenMNs.setValue(new CreateMTMenu());
+						}
+					}
+
+				}
 			}
 		}
 	}

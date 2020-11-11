@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.revature.exceptions.AccountNotFoundException;
+import com.revature.exceptions.NegativeValueException;
 import com.revature.exceptions.OverdraftException;
 import com.revature.models.Account;
 import com.revature.util.ConnectionUtil;
@@ -159,11 +160,14 @@ public class JHBankAccountDAO implements BankAccountRepository {
 				return a;
 	}
 
-	public Account updateBalance(Account a, double transaction_amount, boolean withdraw) throws OverdraftException {
+	public Account updateBalance(Account a, double transaction_amount, boolean withdraw) throws OverdraftException,NegativeValueException {
+		if(transaction_amount<0) {
+			throw new NegativeValueException();
+		}
 		Connection conn = cu.getConnection();
 		try {
 			PreparedStatement prepStatement = 
-					conn.prepareStatement("update accounts set balance = ? "
+					conn.prepareStatement("update accounts set balance = (balance-?) "
 										+ "where acc_id = ? "
 										+ "returning accounts.balance;");
 			
@@ -172,10 +176,10 @@ public class JHBankAccountDAO implements BankAccountRepository {
 				if(a.getBalance()-transaction_amount < 0) {
 					throw new OverdraftException();
 				}else {
-					prepStatement.setDouble(1, a.getBalance()-transaction_amount);
+					prepStatement.setDouble(1, transaction_amount);
 				}
 			}else {
-				prepStatement.setDouble(1, a.getBalance()+transaction_amount);
+				prepStatement.setDouble(1, (-transaction_amount));
 			}
 
 			prepStatement.setInt(2, a.getAcc_id());

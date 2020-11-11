@@ -3,6 +3,7 @@ package com.revature.services;
 import java.util.List;
 
 import com.revature.exceptions.AccountNotFoundException;
+import com.revature.exceptions.NegativeValueException;
 import com.revature.exceptions.OverdraftException;
 import com.revature.models.Account;
 import com.revature.repositories.BankAccountRepository;
@@ -31,7 +32,7 @@ public class JHBankAccountService implements BankAccountService {
 	}
 
 	@Override
-	public Account UpdateBalanceForAccount(Account a, double amount, boolean withdraw) throws OverdraftException {
+	public Account UpdateBalanceForAccount(Account a, double amount, boolean withdraw) throws OverdraftException,NegativeValueException {
 		a = bar.updateBalance(a, amount, withdraw);
 		return a;
 	}

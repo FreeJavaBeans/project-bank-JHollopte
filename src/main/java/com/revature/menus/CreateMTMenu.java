@@ -59,6 +59,7 @@ public class CreateMTMenu extends AbstractMenu {
 														ele, acc_id,
 														ele.getAcc_name() + " Created Money Transfer ");
 												newTrans = bts.createNewTransaction(newTrans);
+												MenuSelector.getMenuSelector().updateAllChildren(true);
 											}catch (NumberFormatException e) {
 												System.out.println("Please Make a Valid Account Id/Sending Amount");
 											}catch (NegativeValueException e) {

@@ -3,6 +3,7 @@ package com.revature.repositories;
 import java.util.List;
 
 import com.revature.exceptions.AccountNotFoundException;
+import com.revature.exceptions.NegativeValueException;
 import com.revature.exceptions.OverdraftException;
 import com.revature.models.Account;
 
@@ -22,7 +23,7 @@ public interface BankAccountRepository {
 	public List<Account> getAccountsByUserId(int id);
 	
 	public Account updateBalance
-		(Account a, double transaction_amount, boolean withdraw) throws OverdraftException;
+		(Account a, double transaction_amount, boolean withdraw) throws OverdraftException, NegativeValueException;
 	
 	public List<Account> getAllPendingAccounts();
 	

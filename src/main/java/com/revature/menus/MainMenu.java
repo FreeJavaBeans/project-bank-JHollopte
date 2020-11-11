@@ -3,6 +3,7 @@ package com.revature.menus;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.revature.exceptions.NegativeValueException;
 import com.revature.models.Account;
 import com.revature.models.Transaction;
 import com.revature.services.BankAccountService;
@@ -54,6 +55,9 @@ public class MainMenu extends AbstractMenu{
 					}else {
 						startingBalance = Double.parseDouble(input);
 					}
+					if(startingBalance<0) {
+						throw new NegativeValueException();
+					}
 					newAccount.setBalance(startingBalance);
 					newAccount.setAcc_status("P");
 					
@@ -67,9 +71,12 @@ public class MainMenu extends AbstractMenu{
 																newAccount, 
 																"new account");
 					newTrans = bts.createNewTransaction(newTrans);
+					MenuSelector.getMenuSelector().updateAllChildren(false);
 					
 				}catch (NumberFormatException e) {
 					System.out.println("Invaild starting balance, going back to main menu");
+				}catch (NegativeValueException e) {
+					System.out.println("You can't start account with negative money in it");
 				}
 			});
 		MenuLine l3 = new MenuLine(2, ()->"3: Money Transfer", ()->{

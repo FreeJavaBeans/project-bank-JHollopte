@@ -3,6 +3,7 @@ package com.revature.menus;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.revature.exceptions.NegativeValueException;
 import com.revature.exceptions.OverdraftException;
 import com.revature.models.Account;
 import com.revature.models.Transaction;
@@ -20,7 +21,7 @@ public class ModifiyAccountMenu extends AbstractMenu {
 
 	@Override
 	public void handleInput() {
-		System.out.println(currentAccount.getAcc_name() +
+		System.out.println(currentAccount.getAcc_name() + " ID: " + currentAccount.getAcc_id() +
 				" has a balance of " + currentAccount.getBalance() + "...");
 		System.out.println("Enter a number, " + 1 + "-" + this.getLines().size() + ": ");
 		String input = this.getInputReader().nextLine();
@@ -56,6 +57,8 @@ public class ModifiyAccountMenu extends AbstractMenu {
 				System.out.println("You don't have enough money to make this withdraw");
 			}catch(NumberFormatException e) {
 				System.out.println("Could not read amount, please try again...");
+			}catch(NegativeValueException e) {
+				System.out.println("You can't make a negative withdraw");
 			}
 		});
 		MenuLine l2 = new MenuLine(1, ()->"2: Deposit", ()->{
@@ -75,6 +78,8 @@ public class ModifiyAccountMenu extends AbstractMenu {
 				System.out.println("?Please don't enter negative amounts?");
 			}catch(NumberFormatException e) {
 				System.out.println("Could not read amount, please try again...");
+			}catch(NegativeValueException e) {
+				System.out.println("You can't make a negative deposit");
 			}
 		});
 		MenuLine l4 = new MenuLine(3, ()->"3: Go Back", ()->{
