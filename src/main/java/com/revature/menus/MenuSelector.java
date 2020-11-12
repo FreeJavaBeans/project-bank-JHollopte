@@ -135,6 +135,16 @@ public class MenuSelector implements Displayable{
 			}
 		}
 	}
+	
+	public void updateParentsParentChildren() {
+		MenuNode parent = this.currentMenu.getParent().getParent();
+		List<MenuNode> children = parent.getChildren();
+		for(MenuNode mn : children) {
+			if(mn.getValue() instanceof AccountMenu) {
+				mn.setValue(new AccountMenu());
+			}
+		}
+	}
 
 	public void updateNodesAfterLogin() {
 		MenuNode login = this.currentMenu;

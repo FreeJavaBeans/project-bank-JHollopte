@@ -53,6 +53,7 @@ public class AcceptMTMenu extends AbstractMenu {
 														"Accepted Money Transfer");
 												newTrans = bts.createNewTransaction(newTrans);
 												MenuSelector.getMenuSelector().updateNode();
+												MenuSelector.getMenuSelector().updateParentsParentChildren();
 											}else {
 												System.out.println("Heading back to last menu...");
 											}
